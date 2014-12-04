@@ -19,7 +19,7 @@
 
                         <ul>
 
-                            <!--Characterss-->
+                            <!--Characters-->
                             <li><a href="#">
                                 <span>
                                     <small>lvl</small>
