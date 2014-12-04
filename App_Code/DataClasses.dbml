@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Database" Class="DataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DatabaseConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.affixes" Member="affixes">
+    <Type Name="affix">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="startValue" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="endValue" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[level]" Member="level" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="affix_itemAffix" Member="itemAffixes" ThisKey="id" OtherKey="affix" Type="itemAffix" />
+      <Association Name="affix_statAffix" Member="statAffixes" ThisKey="id" OtherKey="affix" Type="statAffix" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Users" Member="Users">
+    <Type Name="User">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="password" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="role" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="User_Character" Member="Characters" ThisKey="id" OtherKey="User" Type="Character" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Characters" Member="Characters">
+    <Type Name="Character">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Race" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Class" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Level]" Member="Level" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Experience" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Currency" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[User]" Member="User" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="User_Character" Member="User1" ThisKey="User" OtherKey="id" Type="User" IsForeignKey="true" />
+      <Association Name="Class_Character" Member="Class1" ThisKey="Class" OtherKey="Id" Type="Class" IsForeignKey="true" />
+      <Association Name="Race_Character" Member="Race1" ThisKey="Race" OtherKey="Id" Type="Race" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Classes" Member="Classes">
+    <Type Name="Class">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Class_Character" Member="Characters" ThisKey="Id" OtherKey="Class" Type="Character" />
+      <Association Name="Class_ClassTrait" Member="ClassTraits" ThisKey="Id" OtherKey="Class" Type="ClassTrait" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ClassTraits" Member="ClassTraits">
+    <Type Name="ClassTrait">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Class" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Trait" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Class_ClassTrait" Member="Class1" ThisKey="Class" OtherKey="Id" Type="Class" IsForeignKey="true" />
+      <Association Name="Trait_ClassTrait" Member="Trait1" ThisKey="Trait" OtherKey="Id" Type="Trait" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.colors" Member="colors">
+    <Type Name="color">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="color" Member="color1" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="color_itemSocket" Member="itemSockets" ThisKey="id" OtherKey="color" Type="itemSocket" />
+      <Association Name="color_socket" Member="sockets" ThisKey="id" OtherKey="color" Type="socket" />
+    </Type>
+  </Table>
+  <Table Name="dbo.itemAffixes" Member="itemAffixes">
+    <Type Name="itemAffix">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="item" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="affix" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="value" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="affix_itemAffix" Member="affix1" ThisKey="affix" OtherKey="id" Type="affix" IsForeignKey="true" />
+      <Association Name="item_itemAffix" Member="item1" ThisKey="item" OtherKey="id" Type="item" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.itemBase" Member="itemBases">
+    <Type Name="itemBase">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="baseName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="baseType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="baseLevel" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="itemBase_item" Member="items" ThisKey="id" OtherKey="base" Type="item" />
+      <Association Name="itemType_itemBase" Member="itemType" ThisKey="baseType" OtherKey="id" Type="itemType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.itemLevel" Member="itemLevels">
+    <Type Name="itemLevel">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="monster" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="itemLevel_item" Member="items" ThisKey="id" OtherKey="level" Type="item" />
+      <Association Name="monster_itemLevel" Member="monster1" ThisKey="monster" OtherKey="id" Type="monster" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.itemLinks" Member="itemLinks">
+    <Type Name="itemLink">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="item" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="link" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="item_itemLink" Member="item1" ThisKey="item" OtherKey="id" Type="item" IsForeignKey="true" />
+      <Association Name="link_itemLink" Member="link1" ThisKey="link" OtherKey="id" Type="link" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.itemName" Member="itemNames">
+    <Type Name="itemName">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.itemRarity" Member="itemRarities">
+    <Type Name="itemRarity">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="value" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="itemRarity_item" Member="items" ThisKey="id" OtherKey="rarity" Type="item" />
+      <Association Name="itemRarity_unique" Member="uniques" ThisKey="id" OtherKey="tier" Type="unique" />
+    </Type>
+  </Table>
+  <Table Name="dbo.itemRequirement" Member="itemRequirements">
+    <Type Name="itemRequirement">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="item" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="requirement" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="item_itemRequirement" Member="item1" ThisKey="item" OtherKey="id" Type="item" IsForeignKey="true" />
+      <Association Name="requirement_itemRequirement" Member="requirement1" ThisKey="requirement" OtherKey="id" Type="requirement" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.items" Member="items">
+    <Type Name="item">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="base" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[level]" Member="level" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="slot" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="rarity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="item_itemAffix" Member="itemAffixes" ThisKey="id" OtherKey="item" Type="itemAffix" />
+      <Association Name="item_itemLink" Member="itemLinks" ThisKey="id" OtherKey="item" Type="itemLink" />
+      <Association Name="item_itemRequirement" Member="itemRequirements" ThisKey="id" OtherKey="item" Type="itemRequirement" />
+      <Association Name="item_itemSocket" Member="itemSockets" ThisKey="id" OtherKey="item" Type="itemSocket" />
+      <Association Name="item_socket" Member="sockets" ThisKey="id" OtherKey="item" Type="socket" />
+      <Association Name="itemBase_item" Member="itemBase" ThisKey="base" OtherKey="id" Type="itemBase" IsForeignKey="true" />
+      <Association Name="itemLevel_item" Member="itemLevel" ThisKey="level" OtherKey="id" Type="itemLevel" IsForeignKey="true" />
+      <Association Name="itemRarity_item" Member="itemRarity" ThisKey="rarity" OtherKey="id" Type="itemRarity" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.itemSockets" Member="itemSockets">
+    <Type Name="itemSocket">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="socket" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="color" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="item" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="color_itemSocket" Member="color1" ThisKey="color" OtherKey="id" Type="color" IsForeignKey="true" />
+      <Association Name="item_itemSocket" Member="item1" ThisKey="item" OtherKey="id" Type="item" IsForeignKey="true" />
+      <Association Name="socket_itemSocket" Member="socket1" ThisKey="socket" OtherKey="id" Type="socket" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.itemType" Member="itemTypes">
+    <Type Name="itemType">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="type" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="slot" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="itemType_itemBase" Member="itemBases" ThisKey="id" OtherKey="baseType" Type="itemBase" />
+    </Type>
+  </Table>
+  <Table Name="dbo.links" Member="links">
+    <Type Name="link">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="[option]" Member="option" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="description" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="link_itemLink" Member="itemLinks" ThisKey="id" OtherKey="link" Type="itemLink" />
+    </Type>
+  </Table>
+  <Table Name="dbo.monsters" Member="monsters">
+    <Type Name="monster">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="[level]" Member="level" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="monster_itemLevel" Member="itemLevels" ThisKey="id" OtherKey="monster" Type="itemLevel" />
+    </Type>
+  </Table>
+  <Table Name="dbo.RaceRacials" Member="RaceRacials">
+    <Type Name="RaceRacial">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Race" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Racial" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Race_RaceRacial" Member="Race1" ThisKey="Race" OtherKey="Id" Type="Race" IsForeignKey="true" />
+      <Association Name="Racial_RaceRacial" Member="Racial1" ThisKey="Racial" OtherKey="Id" Type="Racial" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Races" Member="Races">
+    <Type Name="Race">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Race_Character" Member="Characters" ThisKey="Id" OtherKey="Race" Type="Character" />
+      <Association Name="Race_RaceRacial" Member="RaceRacials" ThisKey="Id" OtherKey="Race" Type="RaceRacial" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Racials" Member="Racials">
+    <Type Name="Racial">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Decription" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="Change" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Racial_RaceRacial" Member="RaceRacials" ThisKey="Id" OtherKey="Racial" Type="RaceRacial" />
+    </Type>
+  </Table>
+  <Table Name="dbo.requirements" Member="requirements">
+    <Type Name="requirement">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="attribute" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="value" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="requirement_itemRequirement" Member="itemRequirements" ThisKey="id" OtherKey="requirement" Type="itemRequirement" />
+      <Association Name="stat_requirement" Member="stat" ThisKey="attribute" OtherKey="id" Type="stat" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.sockets" Member="sockets">
+    <Type Name="socket">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="item" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="color" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="position" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="socket_itemSocket" Member="itemSockets" ThisKey="id" OtherKey="socket" Type="itemSocket" />
+      <Association Name="color_socket" Member="color1" ThisKey="color" OtherKey="id" Type="color" IsForeignKey="true" />
+      <Association Name="item_socket" Member="item1" ThisKey="item" OtherKey="id" Type="item" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.statAffix" Member="statAffixes">
+    <Type Name="statAffix">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="stat" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="affix" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="affix_statAffix" Member="affix1" ThisKey="affix" OtherKey="id" Type="affix" IsForeignKey="true" />
+      <Association Name="stat_statAffix" Member="stat1" ThisKey="stat" OtherKey="id" Type="stat" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.stats" Member="stats">
+    <Type Name="stat">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="prefix" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="stat_requirement" Member="requirements" ThisKey="id" OtherKey="attribute" Type="requirement" />
+      <Association Name="stat_statAffix" Member="statAffixes" ThisKey="id" OtherKey="stat" Type="statAffix" />
+      <Association Name="statType_stat" Member="statType" ThisKey="type" OtherKey="id" Type="statType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.statType" Member="statTypes">
+    <Type Name="statType">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="mainType" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="subType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="statType_stat" Member="stats" ThisKey="id" OtherKey="type" Type="stat" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Traits" Member="Traits">
+    <Type Name="Trait">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="Change" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Trait_ClassTrait" Member="ClassTraits" ThisKey="Id" OtherKey="Trait" Type="ClassTrait" />
+    </Type>
+  </Table>
+  <Table Name="dbo.uniques" Member="uniques">
+    <Type Name="unique">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="[level]" Member="level" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="tier" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="itemRarity_unique" Member="itemRarity" ThisKey="tier" OtherKey="id" Type="itemRarity" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

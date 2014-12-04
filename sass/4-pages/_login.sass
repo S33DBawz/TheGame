@@ -1,0 +1,110 @@
+#login
+	.action-box
+		position: fixed
+		left: 50%
+		top: 200px
+		+transform(translateX(-50%))
+		@extend %box-design
+		height: 320px
+		+transition()
+
+		&.slide
+			+transform(translateX(-60%))
+	
+			.overlay
+				opacity: .6
+				pointer-events: all
+	
+		.overlay
+			pointer-events: none
+			+transition()
+			opacity: 0
+			background: #222
+			+position(absolute, 0 0 0 0)
+	
+	h1
+		text-align: center
+		margin-bottom: 20px
+		color: #333
+		padding-bottom: 10px
+		border-bottom: 1px solid #ccc
+
+	a
+		display: block
+		margin: 0 auto $mainMargin
+		cursor: pointer
+		width: 200px
+		height: 60px
+		background: $mainColor
+		text-align: center
+		color: #fff
+		line-height: 60px
+
+		&:hover
+			background: darken($mainColor, 14%)
+	
+		span
+			font:
+				size: $fontSize
+	.login-box
+		@extend %box-design
+		height: 320px
+		+transition()
+		
+		&.slide
+			right: 50%
+			+transform(translateX(50%))
+	
+	.signup-box
+		@extend %box-design
+		height: 320px
+		+transition()
+				
+		&.slide
+			right: 50%
+			+transform(translateX(50%))
+	
+	input[type=text]
+		background: #222
+		margin-bottom: 8px
+
+	input[type="submit"]
+		display: block
+		margin: 15px auto 0
+		background: $mainColor
+		color: $white
+		border: none
+		padding: 15px 40px
+		font-size: $medFontSize
+
+		&:hover
+			background: darken($mainColor, 14%)
+
+	
+	span.back
+		+position(absolute, 10px null null 27px)
+		cursor: pointer
+
+		small
+			background: url(../images/function-icons/back-icon.svg)
+			width: 16px
+			height: 16px
+			position: relative
+			top: 2px
+			display: inline-block
+		
+	
+	
+
+
+
+%box-design
+	position: fixed
+	top: 200px
+	right: -300px
+	padding: 30px
+	width: 300px
+	background: $white
+	border: 1px solid rgba(255,255,255,.8)
+	box-shadow: 0px 0px 5px #222
+
