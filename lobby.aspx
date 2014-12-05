@@ -8,51 +8,19 @@
             <aside class="slide-in">
                 <div class="sidebar-blurred"></div>
                 <div class="sidebar-characters">
-                    <div class="wrapper">
 
-                        <!--Username-->
-                        <h1>
-                            <asp:Literal ID="account_name" runat="server" />
-                            's Account</h1>
-                        <!---->
+                    <!--Username-->
+                    <h1>
+                        <asp:Literal ID="account_name" runat="server" />
+                        's Account</h1>
+                    <!---->
 
                         <nav class="characters">
-
-                            <!--Race Selection-->
-                            <asp:Panel ID="Panel_Race" runat="server" Visible="false">
-                                <asp:Repeater ID="rep_races" runat="server" ItemType="Race">
-                                    <ItemTemplate>
-                                        <li><a href="<%# HttpContext.Current.Request.Url.ToString() + "&Race=" + Item.Id %>">
-                                            <h2><%# Item.Name %></h2>
-                                        </a></li>
-                                    </ItemTemplate>
-                                </asp:Repeater>
-                            </asp:Panel>
-                            <!---->
-
-                            <!--Class Selection-->
-                            <asp:Panel ID="Panel_Class" runat="server" Visible="false">
-                                <asp:Repeater ID="rep_classes" runat="server" ItemType="Class">
-                                    <ItemTemplate>
-                                        <li><a href="<%# HttpContext.Current.Request.Url.ToString() + "&Class=" + Item.Id %>">
-                                            <h2><%# Item.Name %></h2>
-                                        </a></li>
-                                    </ItemTemplate>
-                                </asp:Repeater>
-                            </asp:Panel>
-                            <!---->
-
-                            <!--Create Character-->
-                            <asp:Panel ID="Panel_Create" runat="server" Visible="false">
-                                <asp:TextBox ID="TextBox_Name" runat="server" placeholder="Character Name"></asp:TextBox>
-                                <asp:Button ID="Button_Create" runat="server" OnClick="Button_Create_Click" Text="Create Character" />
-                            </asp:Panel>
-                            <!---->
 
                             <ul>
 
                                 <!--Characters-->
-                                <asp:Panel ID="Panel_Characters" runat="server">
+                                <asp:Panel ID="Panel_Characters" Visible="false" runat="server">
                                     <asp:Repeater runat="server" ID="rep_characters" ItemType="Character">
                                         <ItemTemplate>
 
@@ -74,51 +42,59 @@
                             </ul>
 
                         </nav>
-                    </div>
-                    <nav class="buttons">
-                        <ul>
-                            <asp:Literal ID="Literal_Delete" runat="server"><li><a href="%Delete"><h2>Delete Character</h2></a></li></asp:Literal>
-                            <asp:Literal ID="Literal_Create" runat="server"><li><a href="?Character"><h2>Create New Character</h2></a></li></asp:Literal>
-                            <li><a href="?Account"><h2>Account Settings</h2></a></li>
-                            <li><a href="?Logout=true"><h2>Logout</h2></a></li>
-                        </ul>
-                    </nav>
 
+
+                    <asp:Panel runat="server" Visible="false" ID="panel_create">
+                        <ul>
+                            <li>
+                                <h3>What is your desired race?</h3>
+
+                                <asp:RadioButtonList DataTextField="Name" DataValueField="Id" ItemType="Race" runat="server" ID="bl_races" />
+
+                            </li>
+
+                            <li>
+                                <h3>What role would you like?</h3>
+
+                                <asp:RadioButtonList DataTextField="Name" DataValueField="Id" ItemType="Class" runat="server" ID="bl_classes" />
+
+                            </li>
+                        </ul>
+                    </asp:Panel>
+
+                    <asp:Button runat="server" CssClass="btn-create-character" Text="Create New" ID="btn_create"></asp:Button>
 
                 </div>
+
             </aside>
 
-            <!--HØJRE SIDE-->
-            <div class="højreside">
+            <section id="main-content">
+                <div class="enter-world">
+                    <asp:Panel ID="panel_enter_world" runat="server">
 
-                <!--Character Info-->
-                <asp:Panel ID="Panel_Info" runat="server">
-                    <asp:Repeater runat="server" ID="Repeater_Info" ItemType="Character">
-                        <ItemTemplate>
+                        <asp:Image runat="server" ID="character_image" />
 
-                            <li><a href="?Character=<%# Item.Name %>">
-                                <span>
-                                    <small>lvl</small>
-                                    <small><%# Item.Level %></small>
-                                </span>
-                                <h2><%# Item.Name %></h2>
-                                <h2><%# Item.Race1.Name %></h2>
-                                <h2><%# Item.Class1.Name %></h2>
-                            </a></li>
+                        <h3>
+                            <asp:Literal runat="server" ID="char_name"></asp:Literal></h3>
+                        <h3>
+                            <asp:Literal ID="char_level" runat="server"></asp:Literal></h3>
 
-                        </ItemTemplate>
-                    </asp:Repeater>
-                </asp:Panel>
-                <!---->
+                        <h3>
+                            <asp:Literal ID="char_class" runat="server"></asp:Literal></h3>
 
-                <div class="play">
-                    <asp:Button ID="Button_Play" runat="server" Text="Enter World" OnClick="Button_Play_Click" />
+
+                    </asp:Panel>
+
+                    <asp:Panel Visible="false" ID="panel_character_information" runat="server">
+                    </asp:Panel>
+
                 </div>
+                <a class="btn-play" href="#"><span>Enter World</span></a>
 
-            </div>
+
+            </section>
 
         </div>
     </section>
-
 </asp:Content>
 

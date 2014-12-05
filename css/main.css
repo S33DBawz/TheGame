@@ -715,4 +715,36 @@ aside {
   border: 1px solid rgba(255, 255, 255, 0.8);
   box-shadow: 0px 0px 5px #222; }
 
+#main-content {
+  margin-left: 240px; }
+  #main-content .btn-play {
+    display: block;
+    width: 270px;
+    height: 75px;
+    line-height: 75px;
+    background: #9d2727;
+    border: 2px solid #f8f8f8;
+    border-radius: 4px;
+    text-align: center;
+    margin: 0 auto;
+    color: #f8f8f8;
+    text-decoration: none;
+    font-size: 20px; }
+    #main-content .btn-play:hover {
+      background: #641919; }
+  #main-content .enter-world {
+    width: 300px;
+    min-height: 240px;
+    background: rgba(0, 0, 0, 0.3);
+    margin: 200px auto 30px;
+    padding: 20px;
+    box-shadow: 0px 0px 0px 1px rgba(255, 255, 255, 0.3), 2px 2px 10px 0px rgba(0, 0, 0, 0.4); }
+    #main-content .enter-world img {
+      width: 100%;
+      margin: 30px auto; }
+    #main-content .enter-world h3 {
+      text-align: center;
+      font-size: 18px;
+      margin-bototm: 10px; }
+
 /*# sourceMappingURL=main.css.map */
