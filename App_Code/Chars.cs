@@ -95,14 +95,16 @@ public class Chars
     {
         HttpContext.Current.Session.Remove(cl);
     }
+
+    //CHAR OPTIONS
    
     public static int CharToCreate(string name, int race, int role, int user)
     {
         int result = -1;
-        if (CharLimit())
+        if (CharLimit(10))
         {
             Character NewChar = new Character();
-
+            
             NewChar.Name = name;
             NewChar.Race = race;
             NewChar.Class = role;
@@ -116,43 +118,42 @@ public class Chars
             result = NewChar.Id;
 
             CharList = GetCharList();
-            CharList.Add()
 
-            SaveCharList()
+            GetCharList();
         }
         return result;
     }
 
-    public static void AddToChar(int id, int exp, int currency)
-    {
-        Character CharToUpdate = CurrentChar;
-        if (CharToUpdate.Experience + exp > CheckForLevelUp())
-        {
-            CharToUpdate.Level++;
-        }
-        CharToUpdate.Experience = exp;
-        CharToUpdate.Currency = currency;
+    //public static void AddToChar(int id, int exp, int currency)
+    //{
+    //    Character CharToUpdate = CurrentChar;
+    //    if (CharToUpdate.Experience + exp > CheckForLevelUp())
+    //    {
+    //        CharToUpdate.Level++;
+    //    }
+    //    CharToUpdate.Experience = exp;
+    //    CharToUpdate.Currency = currency;
 
-        SaveCharToSession(CharToUpdate);
-    }
+    //    SaveCharToSession(CharToUpdate);
+    //}
 
-    public static bool CharToDelete(int id)
-    {
-        bool status = false;
-        if (db.Characters.Any(c => c.Id.Equals(id)))
-        {
-            Character CharName = db.Characters.First(c => c.Id.Equals(id));
-            db.Characters.DeleteOnSubmit(CharName);
-            db.SubmitChanges();
+    //public static bool CharToDelete()
+    //{
+    //    bool status = false;
+    //    if (db.Characters.Any(c => c.Id.Equals(CurrentChar.Id)))
+    //    {
+    //        Character CharName = db.Characters.First(c => c.Id.Equals(CurrentChar.Id));
+    //        db.Characters.DeleteOnSubmit(CharName);
+    //        db.SubmitChanges();
 
-            status = true;
-        }
-        return status;
-    }
+    //        status = true;
+    //    }
+    //    return status;
+    //}
 
-    public static int CheckForLevelUp()
-    {
-        if (CurrentChar > db.Levels)
-            return 1;
-    }
+    //public static int CheckForLevelUp()
+    //{
+    //    if (CurrentChar > db.Levels)
+    //        return 1;
+    //}
 }
