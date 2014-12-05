@@ -1,5 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Database" Class="DataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="WebSettings" ConnectionString="Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DatabaseConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Users" Member="Users">
+    <Type Name="User">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="password" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="role" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="User_Character" Member="Characters" ThisKey="id" OtherKey="User" Type="Character" />
+      <Association Name="User_UserInformation" Member="UserInformations" ThisKey="id" OtherKey="User" Type="UserInformation" />
+    </Type>
+  </Table>
   <Table Name="dbo.affixes" Member="affixes">
     <Type Name="affix">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -9,15 +19,6 @@
       <Column Name="[level]" Member="level" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="affix_itemAffix" Member="itemAffixes" ThisKey="id" OtherKey="affix" Type="itemAffix" />
       <Association Name="affix_statAffix" Member="statAffixes" ThisKey="id" OtherKey="affix" Type="statAffix" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Users" Member="Users">
-    <Type Name="User">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="email" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="password" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
-      <Column Name="role" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="User_Character" Member="Characters" ThisKey="id" OtherKey="User" Type="Character" />
     </Type>
   </Table>
   <Table Name="dbo.Characters" Member="Characters">
@@ -263,6 +264,14 @@
       <Column Name="[level]" Member="level" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="tier" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="itemRarity_unique" Member="itemRarity" ThisKey="tier" OtherKey="id" Type="itemRarity" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserInformation" Member="UserInformations">
+    <Type Name="UserInformation">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="[User]" Member="User" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="User_UserInformation" Member="User1" ThisKey="User" OtherKey="id" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

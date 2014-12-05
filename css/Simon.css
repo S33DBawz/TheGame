@@ -1,0 +1,11 @@
+﻿.wrapper {
+    height: 80%;
+}
+.buttons {
+    height:20%;
+}
+
+.højreside {
+    position:fixed;
+    left: 400px;
+}

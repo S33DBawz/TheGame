@@ -10,49 +10,28 @@ public class Chars
 {
     static DataClassesDataContext db = new DataClassesDataContext();
 
-    public static string u = "user";
     public static string c = "chars";
-
-    private static List<Character> CharList;
-    private static List<Character> CharCount;
-    private static List<User> UserList;
-
-    public static User CurrentUser
-    {
-        get
-        {
-            if (HttpContext.Current.Session[u] == null)
-            {
-                User newUser = new User();
-                newUser.role = 0;
-                HttpContext.Current.Session[u] = new User();
-            }
-            return HttpContext.Current.Session[u] as User;
-        }        
-    }
-
-    public static List<Character> GetCharCount()
-    {
-        if (CurrentUser.role != 0 && HttpContext.Current.Session[c] == null)
-        {
-            List<Character> CharsToCount = db.Characters.Where(ucc => ucc.User.Equals(CurrentUser.id)).ToList();
-            HttpContext.Current.Session[c] = CharsToCount;
-        }        
-        return HttpContext.Current.Session[c] as List<Character>;
-    }
 
     public static List<Character> GetCharList()
     {
-
-        List<Character> CharsToList = db.Characters.Where(uc => uc.User.Equals(CurrentUser.id)).Select(ch => ch).ToList();
-        return CharsToList;
+        if (LoginHandler.CurrentUser.role != 0 && HttpContext.Current.Session[c] == null)
+        {
+            List<Character> CharsToList = db.Characters.Where(ucc => ucc.User.Equals(LoginHandler.CurrentUser.id)).ToList();
+            HttpContext.Current.Session[c] = CharsToList;
+        }
+        return HttpContext.Current.Session[c] as List<Character>;
     }
 
-	public static bool CharLimit()
-	{           
-        return GetCharCount().Count >= 10;
-	}  
-  
+    public static bool CharLimit()
+    {
+        return GetCharList().Count < 10;
+    }
+
+    public static int CharCount()
+    {
+        return GetCharList().Count;
+    }
+
     public static int CreateChar(string name, int race, int role, int user)
     {
         int result = -1;
@@ -66,12 +45,50 @@ public class Chars
             NewChar.Level = 1;
             NewChar.Experience = 0;
             NewChar.Currency = 0;
-            NewChar.User = CurrentUser.id;
+            NewChar.User = user;
             db.Characters.InsertOnSubmit(NewChar);
             db.SubmitChanges();
 
             result = NewChar.Id;
         }
         return result;
+    }
+
+    public static bool AddToChar(int id, int exp, int currency)
+    {
+        bool status = false;
+        if (db.Characters.Any(c => c.Id.Equals(id)))
+        {
+            Character CharToUpdate = db.Characters.First(c => c.Id.Equals(id));
+            //Run LevelUpChecker()
+            if (CharToUpdate.Experience + exp > LevelUpChecker())
+            {
+                CharToUpdate.Level++;
+            }
+            CharToUpdate.Experience = exp;
+            CharToUpdate.Currency = currency;
+            
+
+        }
+        return status;
+    }
+
+    public static bool DeleteChar(int id)
+    {
+        bool status = false;
+        if (db.Characters.Any(c => c.Id.Equals(id)))
+        {
+            Character CharName = db.Characters.First(c => c.Id.Equals(id));
+            db.Characters.DeleteOnSubmit(CharName);
+            db.SubmitChanges();
+
+            status = true;
+        }
+        return status;
+    }
+
+    public static int LevelUpChecker()
+    {
+        return 1;
     }
 }
