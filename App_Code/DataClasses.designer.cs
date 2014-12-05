@@ -29,12 +29,12 @@ public partial class DataClassesDataContext : System.Data.Linq.DataContext
 	
   #region Extensibility Method Definitions
   partial void OnCreated();
-  partial void InsertUser(User instance);
-  partial void UpdateUser(User instance);
-  partial void DeleteUser(User instance);
   partial void Insertaffix(affix instance);
   partial void Updateaffix(affix instance);
   partial void Deleteaffix(affix instance);
+  partial void InsertUser(User instance);
+  partial void UpdateUser(User instance);
+  partial void DeleteUser(User instance);
   partial void InsertCharacter(Character instance);
   partial void UpdateCharacter(Character instance);
   partial void DeleteCharacter(Character instance);
@@ -77,6 +77,9 @@ public partial class DataClassesDataContext : System.Data.Linq.DataContext
   partial void InsertitemType(itemType instance);
   partial void UpdateitemType(itemType instance);
   partial void DeleteitemType(itemType instance);
+  partial void InsertLevel(Level instance);
+  partial void UpdateLevel(Level instance);
+  partial void DeleteLevel(Level instance);
   partial void Insertlink(link instance);
   partial void Updatelink(link instance);
   partial void Deletelink(link instance);
@@ -148,19 +151,19 @@ public partial class DataClassesDataContext : System.Data.Linq.DataContext
 		OnCreated();
 	}
 	
-	public System.Data.Linq.Table<User> Users
-	{
-		get
-		{
-			return this.GetTable<User>();
-		}
-	}
-	
 	public System.Data.Linq.Table<affix> affixes
 	{
 		get
 		{
 			return this.GetTable<affix>();
+		}
+	}
+	
+	public System.Data.Linq.Table<User> Users
+	{
+		get
+		{
+			return this.GetTable<User>();
 		}
 	}
 	
@@ -276,6 +279,14 @@ public partial class DataClassesDataContext : System.Data.Linq.DataContext
 		}
 	}
 	
+	public System.Data.Linq.Table<Level> Levels
+	{
+		get
+		{
+			return this.GetTable<Level>();
+		}
+	}
+	
 	public System.Data.Linq.Table<link> links
 	{
 		get
@@ -378,196 +389,6 @@ public partial class DataClassesDataContext : System.Data.Linq.DataContext
 		{
 			return this.GetTable<UserInformation>();
 		}
-	}
-}
-
-[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Users")]
-public partial class User : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _id;
-	
-	private string _email;
-	
-	private string _password;
-	
-	private int _role;
-	
-	private EntitySet<Character> _Characters;
-	
-	private EntitySet<UserInformation> _UserInformations;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OnemailChanging(string value);
-    partial void OnemailChanged();
-    partial void OnpasswordChanging(string value);
-    partial void OnpasswordChanged();
-    partial void OnroleChanging(int value);
-    partial void OnroleChanged();
-    #endregion
-	
-	public User()
-	{
-		this._Characters = new EntitySet<Character>(new Action<Character>(this.attach_Characters), new Action<Character>(this.detach_Characters));
-		this._UserInformations = new EntitySet<UserInformation>(new Action<UserInformation>(this.attach_UserInformations), new Action<UserInformation>(this.detach_UserInformations));
-		OnCreated();
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-	public int id
-	{
-		get
-		{
-			return this._id;
-		}
-		set
-		{
-			if ((this._id != value))
-			{
-				this.OnidChanging(value);
-				this.SendPropertyChanging();
-				this._id = value;
-				this.SendPropertyChanged("id");
-				this.OnidChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_email", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-	public string email
-	{
-		get
-		{
-			return this._email;
-		}
-		set
-		{
-			if ((this._email != value))
-			{
-				this.OnemailChanging(value);
-				this.SendPropertyChanging();
-				this._email = value;
-				this.SendPropertyChanged("email");
-				this.OnemailChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_password", DbType="Text NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string password
-	{
-		get
-		{
-			return this._password;
-		}
-		set
-		{
-			if ((this._password != value))
-			{
-				this.OnpasswordChanging(value);
-				this.SendPropertyChanging();
-				this._password = value;
-				this.SendPropertyChanged("password");
-				this.OnpasswordChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_role", DbType="Int NOT NULL")]
-	public int role
-	{
-		get
-		{
-			return this._role;
-		}
-		set
-		{
-			if ((this._role != value))
-			{
-				this.OnroleChanging(value);
-				this.SendPropertyChanging();
-				this._role = value;
-				this.SendPropertyChanged("role");
-				this.OnroleChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Character", Storage="_Characters", ThisKey="id", OtherKey="User")]
-	public EntitySet<Character> Characters
-	{
-		get
-		{
-			return this._Characters;
-		}
-		set
-		{
-			this._Characters.Assign(value);
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_UserInformation", Storage="_UserInformations", ThisKey="id", OtherKey="User")]
-	public EntitySet<UserInformation> UserInformations
-	{
-		get
-		{
-			return this._UserInformations;
-		}
-		set
-		{
-			this._UserInformations.Assign(value);
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-	
-	private void attach_Characters(Character entity)
-	{
-		this.SendPropertyChanging();
-		entity.User1 = this;
-	}
-	
-	private void detach_Characters(Character entity)
-	{
-		this.SendPropertyChanging();
-		entity.User1 = null;
-	}
-	
-	private void attach_UserInformations(UserInformation entity)
-	{
-		this.SendPropertyChanging();
-		entity.User1 = this;
-	}
-	
-	private void detach_UserInformations(UserInformation entity)
-	{
-		this.SendPropertyChanging();
-		entity.User1 = null;
 	}
 }
 
@@ -782,6 +603,196 @@ public partial class affix : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		this.SendPropertyChanging();
 		entity.affix1 = null;
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Users")]
+public partial class User : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _id;
+	
+	private string _email;
+	
+	private string _password;
+	
+	private int _role;
+	
+	private EntitySet<Character> _Characters;
+	
+	private EntitySet<UserInformation> _UserInformations;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnemailChanging(string value);
+    partial void OnemailChanged();
+    partial void OnpasswordChanging(string value);
+    partial void OnpasswordChanged();
+    partial void OnroleChanging(int value);
+    partial void OnroleChanged();
+    #endregion
+	
+	public User()
+	{
+		this._Characters = new EntitySet<Character>(new Action<Character>(this.attach_Characters), new Action<Character>(this.detach_Characters));
+		this._UserInformations = new EntitySet<UserInformation>(new Action<UserInformation>(this.attach_UserInformations), new Action<UserInformation>(this.detach_UserInformations));
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int id
+	{
+		get
+		{
+			return this._id;
+		}
+		set
+		{
+			if ((this._id != value))
+			{
+				this.OnidChanging(value);
+				this.SendPropertyChanging();
+				this._id = value;
+				this.SendPropertyChanged("id");
+				this.OnidChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_email", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+	public string email
+	{
+		get
+		{
+			return this._email;
+		}
+		set
+		{
+			if ((this._email != value))
+			{
+				this.OnemailChanging(value);
+				this.SendPropertyChanging();
+				this._email = value;
+				this.SendPropertyChanged("email");
+				this.OnemailChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_password", DbType="Text NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string password
+	{
+		get
+		{
+			return this._password;
+		}
+		set
+		{
+			if ((this._password != value))
+			{
+				this.OnpasswordChanging(value);
+				this.SendPropertyChanging();
+				this._password = value;
+				this.SendPropertyChanged("password");
+				this.OnpasswordChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_role", DbType="Int NOT NULL")]
+	public int role
+	{
+		get
+		{
+			return this._role;
+		}
+		set
+		{
+			if ((this._role != value))
+			{
+				this.OnroleChanging(value);
+				this.SendPropertyChanging();
+				this._role = value;
+				this.SendPropertyChanged("role");
+				this.OnroleChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Character", Storage="_Characters", ThisKey="id", OtherKey="User")]
+	public EntitySet<Character> Characters
+	{
+		get
+		{
+			return this._Characters;
+		}
+		set
+		{
+			this._Characters.Assign(value);
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_UserInformation", Storage="_UserInformations", ThisKey="id", OtherKey="User")]
+	public EntitySet<UserInformation> UserInformations
+	{
+		get
+		{
+			return this._UserInformations;
+		}
+		set
+		{
+			this._UserInformations.Assign(value);
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+	
+	private void attach_Characters(Character entity)
+	{
+		this.SendPropertyChanging();
+		entity.User1 = this;
+	}
+	
+	private void detach_Characters(Character entity)
+	{
+		this.SendPropertyChanging();
+		entity.User1 = null;
+	}
+	
+	private void attach_UserInformations(UserInformation entity)
+	{
+		this.SendPropertyChanging();
+		entity.User1 = this;
+	}
+	
+	private void detach_UserInformations(UserInformation entity)
+	{
+		this.SendPropertyChanging();
+		entity.User1 = null;
 	}
 }
 
@@ -3629,6 +3640,116 @@ public partial class itemType : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		this.SendPropertyChanging();
 		entity.itemType = null;
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Levels")]
+public partial class Level : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _Id;
+	
+	private int _Value;
+	
+	private int _Experience;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnValueChanging(int value);
+    partial void OnValueChanged();
+    partial void OnExperienceChanging(int value);
+    partial void OnExperienceChanged();
+    #endregion
+	
+	public Level()
+	{
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int Id
+	{
+		get
+		{
+			return this._Id;
+		}
+		set
+		{
+			if ((this._Id != value))
+			{
+				this.OnIdChanging(value);
+				this.SendPropertyChanging();
+				this._Id = value;
+				this.SendPropertyChanged("Id");
+				this.OnIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Value", DbType="Int NOT NULL")]
+	public int Value
+	{
+		get
+		{
+			return this._Value;
+		}
+		set
+		{
+			if ((this._Value != value))
+			{
+				this.OnValueChanging(value);
+				this.SendPropertyChanging();
+				this._Value = value;
+				this.SendPropertyChanged("Value");
+				this.OnValueChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Experience", DbType="Int NOT NULL")]
+	public int Experience
+	{
+		get
+		{
+			return this._Experience;
+		}
+		set
+		{
+			if ((this._Experience != value))
+			{
+				this.OnExperienceChanging(value);
+				this.SendPropertyChanging();
+				this._Experience = value;
+				this.SendPropertyChanged("Experience");
+				this.OnExperienceChanged();
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
 	}
 }
 
