@@ -13,6 +13,27 @@ public class Chars
     public static string c = "char";
     public static string cl = "charlist";
 
+    private static List<Character> CharList;
+
+    //CHAR HELPERS
+
+    public static int CharCount()
+    {
+        return GetCharList().Count;
+    }
+
+    public static bool CharLimit(int count)
+    {
+        return GetCharList().Count < count;
+    }
+
+    //CHAR CONTROL
+
+    public static void SelectChar(int id)
+    {
+        HttpContext.Current.Session[c] = GetCharList().FirstOrDefault(ci => ci.Id.Equals(id));
+    }
+
     public static Character CurrentChar
     {
         get
@@ -21,27 +42,12 @@ public class Chars
         }
     }
 
-    public static void SaveCharToSession(Character CharToSave)
+    //CHAR SESSION CONTROL
+
+    public static void SaveCharToSession()
     {
-        if (CharToSave == null)
-        {
-            CharToSave = db.Characters.FirstOrDefault(cs => cs.Id.Equals(CurrentChar.Id));
-        }
+        Character CharToSave = (Character)GetCharList().Where(cc => cc.Id.Equals(CurrentChar.Id));
         HttpContext.Current.Session[c] = CharToSave;
-    }
-
-    public static void SaveCharToDb(int id, Character CharToSave)
-    {
-        if (CharToSave == null)
-        {
-            CharToSave = db.Characters.FirstOrDefault(cs => cs.Id.Equals(CurrentChar.Id));
-        }
-        Character CharToUpdate = CharToSave;
-
-        CharToUpdate.Level = CharToSave.Level;
-        CharToUpdate.Experience = CharToSave.Experience;
-        CharToUpdate.Currency = CharToSave.Currency;
-        db.SubmitChanges();
     }
 
     public static Character GetCharFromSession()
@@ -54,41 +60,42 @@ public class Chars
         return GetChar;
     }
 
-    public static Character GetCharFromDb(int id)
+    //CHAR DATABASE CONTROL
+
+    public static void SaveCharToDb()
     {
-        return db.Characters.FirstOrDefault(c => c.Id.Equals(id)) as Character;
+        //virker ikke
+        Character CharToSave = (Character)GetCharList().Where(cc => cc.Id.Equals(CurrentChar.Id));
+
+        Character CharToUpdate = new Character();
+
+        CharToUpdate.Level = CharToSave.Level;
+        CharToUpdate.Experience = CharToSave.Experience;
+        CharToUpdate.Currency = CharToSave.Currency;
+        db.SubmitChanges();
     }
 
-    public static void SelectChar(int id)
+    public static Character GetCharFromDb()
     {
-        HttpContext.Current.Session[c] = GetCharList().FirstOrDefault(ci => ci.Id.Equals(id));
+        return db.Characters.FirstOrDefault(c => c.Id.Equals(CurrentChar.Id)) as Character;
     }
+
+    //CHARLIST CONTROL
 
     public static List<Character> GetCharList()
     {
-        if (LoginHandler.CurrentUser.role != 0 && HttpContext.Current.Session[cl] == null)
+        if (LoginHandler.CurrentUser.role != 0)
         {
             List<Character> CharsToList = db.Characters.Where(ucc => ucc.User.Equals(LoginHandler.CurrentUser.id)).ToList();
             HttpContext.Current.Session[cl] = CharsToList;
         }
         return HttpContext.Current.Session[cl] as List<Character>;
     }
-
-    public static void SaveCharList(List<Character> CharList)
+    public static void ClearCharList()
     {
-         HttpContext.Current.Session[cl] = CharList;
+        HttpContext.Current.Session.Remove(cl);
     }
-
-    public static bool CharLimit()
-    {
-        return GetCharList().Count < 10;
-    }
-
-    public static int CharCount()
-    {
-        return GetCharList().Count;
-    }
-
+   
     public static int CharToCreate(string name, int race, int role, int user)
     {
         int result = -1;
@@ -107,6 +114,11 @@ public class Chars
             db.SubmitChanges();
 
             result = NewChar.Id;
+
+            CharList = GetCharList();
+            CharList.Add()
+
+            SaveCharList()
         }
         return result;
     }
@@ -140,7 +152,7 @@ public class Chars
 
     public static int CheckForLevelUp()
     {
-        if (CurrentChar > db.Levels )
-        return 1;
+        if (CurrentChar > db.Levels)
+            return 1;
     }
 }
