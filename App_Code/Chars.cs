@@ -116,49 +116,14 @@ public class Chars
             db.SubmitChanges();
 
             result = NewChar.Id;
-<<<<<<< HEAD
-        }
-        return result;
-    }
-
-    /*public static void AddToChar(int id, int exp, int currency)
-    {
-        Character CharToUpdate = CurrentChar;
-        if (CharToUpdate.Experience + exp > CheckForLevelUp())
-        {
-            CharToUpdate.Level++;
-        }
-        CharToUpdate.Experience = exp;
-        CharToUpdate.Currency = currency;
-
-        SaveCharToSession(CharToUpdate);
-    }
-    */
-    public static bool CharToDelete(int id)
-    {
-        bool status = false;
-        if (db.Characters.Any(c => c.Id.Equals(id)))
-        {
-            Character CharName = db.Characters.First(c => c.Id.Equals(id));
-            db.Characters.DeleteOnSubmit(CharName);
-            db.SubmitChanges();
-=======
 
             CharList = GetCharList();
->>>>>>> 0e4314325cfb59eb52f0e6f6278bf7e76dd2068a
 
             GetCharList();
         }
         return result;
     }
 
-<<<<<<< HEAD
-    /*public static int CheckForLevelUp()
-    {
-        if (CurrentChar > db.Levels )
-        return 1;
-    }*/
-=======
     //public static void AddToChar(int id, int exp, int currency)
     //{
     //    Character CharToUpdate = CurrentChar;
@@ -191,5 +156,4 @@ public class Chars
     //    if (CurrentChar > db.Levels)
     //        return 1;
     //}
->>>>>>> 0e4314325cfb59eb52f0e6f6278bf7e76dd2068a
 }

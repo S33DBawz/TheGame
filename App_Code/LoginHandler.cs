@@ -20,7 +20,7 @@ public static class LoginHandler
             if (HttpContext.Current.Session["user"] == null)
             {
                 User newUser = new User();
-                newUser.role = 0;
+                newUser.Role = 0;
                 HttpContext.Current.Session["user"] = new User();
             }
             return HttpContext.Current.Session["user"] as User;
@@ -30,11 +30,11 @@ public static class LoginHandler
     {
         bool status = false;
 
-        if (db.Users.Any(user => user.email.Equals(email)))
+        if (db.Users.Any(user => user.Email.Equals(email)))
         {
-            User loggingUser = db.Users.First(user => user.email.Equals(email));
+            User loggingUser = db.Users.First(user => user.Email.Equals(email));
 
-            if (PasswordHash.ValidatePassword(password, loggingUser.password))
+            if (PasswordHash.ValidatePassword(password, loggingUser.Password))
             {
                 HttpContext.Current.Session["user"] = loggingUser;
                 status = true;
@@ -44,7 +44,7 @@ public static class LoginHandler
     }
     public static bool IsUserLoggedIn()
     {
-        return (CurrentUser.role > 0);
+        return (CurrentUser.Role > 0);
     }
 
     public static void Logout()
@@ -56,17 +56,17 @@ public static class LoginHandler
     }
     public static int Register(string email, string password, int role)
     {
-        if (!db.Users.Any(user => user.email.Equals(email)))
+        if (!db.Users.Any(user => user.Email.Equals(email)))
         {
             User createUser = new User();
-            createUser.email = email;
-            createUser.password = PasswordHash.CreateHash(password);
-            createUser.role = role;
+            createUser.Email = email;
+            createUser.Password = PasswordHash.CreateHash(password);
+            createUser.Role = role;
 
             db.Users.InsertOnSubmit(createUser);
             db.SubmitChanges();
 
-            return createUser.id;
+            return createUser.Id;
         }
         return -1;
     }
