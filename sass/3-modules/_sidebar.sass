@@ -1,63 +1,164 @@
-aside
-	position: absolute
-	top: 0
-	left: 0%
-	bottom: 0
-	height: 100%
-	+transition(all 1s ease)
-	width: 260px
-	
-	&.slide-in
-		left: -102%
-	
-	.sidebar-blurred
-		+position(absolute, 0 null 0 0)
-		width: 270px
-		background: url(../images/bg.jpg) no-repeat
-		background-attachment: fixed
-		background-size: cover
-		-webkit-filter: blur(10px)
-	
-	.sidebar-characters
-		+position(absolute, 0 null 0 0)
-		width: 260px
-		padding: 30px 0
-		border-right: 1px solid $white
-		background-color: rgba(000,000,150,.1)
-	
+$sidebarColor: #191715
+$statColor: #1c1b19
+$goldColor: #dec11e
+$slotColor: #61605f
+$slotBgColor: #1e1d1b
+$inventoryBg: #272320
+
+.sidebar
+	+position(fixed, 0 null 0 0)
+	width: 240px
+	padding: 10px
+	background: $sidebarColor
+	color: $white
+
+	header
+		img
+			display: block
+			margin: $mainMargin auto 0
+			height: 100px
+			width: 50px
+
 		h1
-			color: $white
-			border-bottom: 1px solid $white
-			margin: 0 $mainMargin 30px
+			margin-top: 10px
+			margin-bottom: $mainMargin
 			text-align: center
-			padding-bottom: 5px
-			text-transform: capitalize
+			
+
+	.stats-lockup
+		margin-bottom: $mainMargin
+
+	.stat-unit
+		background: $statColor
+		padding: 0px 10px
+		height: 28px
+		line-height: 28px
+		margin-bottom: 5px
+		font-size: $fontSize
+		+cf
+
+		&.shield
+			img
+				margin-right: 14px
 	
-		li
-			list-style: none
-			border-bottom: 1px solid rgba(255,255,255,.5)
+		img
+			display: inline-block
+			margin-right: 10px
+			position: relative
+			top: 4px
+
+		&:last-child img
+			+transform(scaleX(-1))
+	
+		.stat-title
+			position: relative
+			top: -2px
 		
-			a
-				display: block
-				height: 55px
-				line-height: 60px
-				color: $white
-				text-decoration: none
-				padding-left: $mainMargin
+		.stat-amount
+			float: right
+		
+		
+	.equipment-lockup
+		margin-bottom: $mainMargin
+
+		.equipment-slots
+			width: 129px
+			margin: 0 auto
+			+cf
+	
+		.head-slot
+			@extend .eq-slot
+			margin: 0 auto		
+		
+		.neck-slot
+			@extend .eq-slot
+			margin: 0 auto
+	
+		.hands-slot
+			@extend .eq-slot
+			margin-right: 10px
+			float: left
+			
+		.body-slot
+			@extend .eq-slot
+			margin-right: 10px
+			float: left
+		
+		.feet-slot
+			@extend .eq-slot
+			float: left
+			
+		.pants-slot
+			@extend .eq-slot
+			float: left
+			margin-right: 10px
+		
+		.weapon-slot
+			@extend .eq-slot
+			float: left
+			margin-right: 10px
+		
+	.eq-slot
+		+size(36px)
+		position: relative
+		border: 2px solid $slotColor
+		background: $slotBgColor
+		margin-bottom: 10px
+
+	.combat-stats-lockup
+		margin-bottom: $mainMargin
+
+		.stat-unit
+			&:first-child
+				img
+					+transform(scaleX(-1))
+
+	footer
+		+cf
+
+		.currency
+			float: right
+			display: block
+			background: $inventoryBg
+			min-width: 40px
+			height: 24px
+			padding: 0px 5px
+			font-size: 12px
+			line-height: 24px
+
+			img
+				margin-right: 5px
+	
+			span
+				text-align: right
+
+		ul
+			padding: 8px 8px 3px 8px
+			background: $inventoryBg
+			+cf
+			margin-top: $mainMargin
+			margin-bottom: 10px
+			
+			li
+				@extend .inv-slot
+				list-style: none
 				
-				span
-					border: 1px solid $white
-					padding: 2px 3px 2px 6px
-					margin-right: 10px
-		
-					small:first-child
-						font-size: $smallerFontSize
-						text-transform: uppercase
-					
-					small:last-child
-						font-size: 16px
+				&:nth-child(5n)
+					margin-right: 0
 	
-				h2
-					display: inline-block
+				img
+					display: block
 					position: relative
-					top: 6px
+					top: 50%
+					left: 50%
+					+size(26px)
+					+transform(translateY(-50%) translateX(-50%))
+		
+		.inv-slot
+			+size(36px)
+			position: relative
+			border: 2px solid $slotColor
+			background: $slotBgColor
+			margin-bottom: 5px
+			margin-right: 6px
+			float: left

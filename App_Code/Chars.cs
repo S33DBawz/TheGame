@@ -111,7 +111,7 @@ public class Chars
         return result;
     }
 
-    public static void AddToChar(int id, int exp, int currency)
+    /*public static void AddToChar(int id, int exp, int currency)
     {
         Character CharToUpdate = CurrentChar;
         if (CharToUpdate.Experience + exp > CheckForLevelUp())
@@ -123,7 +123,7 @@ public class Chars
 
         SaveCharToSession(CharToUpdate);
     }
-
+    */
     public static bool CharToDelete(int id)
     {
         bool status = false;
@@ -138,9 +138,9 @@ public class Chars
         return status;
     }
 
-    public static int CheckForLevelUp()
+    /*public static int CheckForLevelUp()
     {
         if (CurrentChar > db.Levels )
         return 1;
-    }
+    }*/
 }

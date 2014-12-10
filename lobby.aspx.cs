@@ -14,15 +14,12 @@ public partial class lobby : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        bl_races.DataSource = db.Races.ToList();
-        bl_races.DataBind();
-        bl_classes.DataSource = db.Classes.ToList();
-        bl_classes.DataBind();
+
 
 
         if (!LoginHandler.IsUserLoggedIn())
         {
-             Response.Redirect("Login.aspx");
+            Response.Redirect("Login.aspx");
         }
 
         account_name.Text = LoginHandler.CurrentUser.email;
@@ -39,17 +36,20 @@ public partial class lobby : System.Web.UI.Page
 
             switch (Request.QueryString["character"])
             {
-                    
+
                 case "create":
 
                     panel_create.Visible = true;
-
+                    bl_races.DataSource = db.Races.ToList();
+                    bl_races.DataBind();
+                    bl_classes.DataSource = db.Classes.ToList();
+                    bl_classes.DataBind();
                     break;
 
 
                 case "show":
 
-
+                    rep_character_info.DataSource = Session["charlist"];
                     break;
 
             }

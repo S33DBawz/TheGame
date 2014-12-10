@@ -1,0 +1,45 @@
+.tooltip
+	position: relative
+	width: 220px
+	padding: 10px
+	height: 150px
+	border: 1px solid rgba(255,255,255,.8)
+	background: rgba(2,2,2,.5	)
+	box-shadow: 0 0 6px rgba(222,222,222,.4), inset 0 0 3px rgba(2,2,2,.8)
+	display: none
+
+	h6
+		font-size: $medFontSize
+		color: $white
+		margin-bottom: 10px
+		
+	ul
+		margin-bottom: 6px
+		margin-right: $mainMargin
+		float: left
+	
+		li
+			line-height: 18px
+			margin-top: 5px
+			margin-bottom: 5px
+			color: $white
+			list-style: none
+			
+			img
+				+size(18px)
+				position: relative
+				top: 4px
+				margin-right: 5px
+
+	blockquote
+		margin-bottom: 10px
+		font-size: $smallFontSize
+
+	p
+		position: absolute
+		top: 14px
+		right: 10px
+		font-size: 16px
+
+		img
+			margin-right: $mainMargin - 15

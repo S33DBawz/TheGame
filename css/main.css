@@ -499,7 +499,8 @@ th {
   box-sizing: border-box; }
 
 body {
-  font-family: "Abel", sans-serif; }
+  font-family: "Abel", sans-serif;
+  background: #2b0b0b; }
 
 .bg {
   background: url(../images/bg.jpg) no-repeat;
@@ -539,7 +540,7 @@ input[type="text"] {
   padding: 2px 10px;
   color: #f8f8f8; }
 
-aside {
+aside#character-selection {
   position: absolute;
   top: 0;
   left: 0%;
@@ -549,9 +550,9 @@ aside {
   -moz-transition: all 1s ease;
   transition: all 1s ease;
   width: 260px; }
-  aside.slide-in {
+  aside#character-selection.slide-in {
     left: -102%; }
-  aside .sidebar-blurred {
+  aside#character-selection .sidebar-blurred {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -561,7 +562,7 @@ aside {
     background-attachment: fixed;
     background-size: cover;
     -webkit-filter: blur(10px); }
-  aside .sidebar-characters {
+  aside#character-selection .sidebar-characters {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -570,36 +571,223 @@ aside {
     padding: 30px 0;
     border-right: 1px solid #f8f8f8;
     background-color: rgba(0, 0, 150, 0.1); }
-    aside .sidebar-characters h1 {
+    aside#character-selection .sidebar-characters h1 {
       color: #f8f8f8;
       border-bottom: 1px solid #f8f8f8;
       margin: 0 20px 30px;
       text-align: center;
       padding-bottom: 5px;
       text-transform: capitalize; }
-    aside .sidebar-characters li {
+    aside#character-selection .sidebar-characters li {
       list-style: none;
       border-bottom: 1px solid rgba(255, 255, 255, 0.5); }
-      aside .sidebar-characters li a {
+      aside#character-selection .sidebar-characters li a {
         display: block;
         height: 55px;
         line-height: 60px;
         color: #f8f8f8;
         text-decoration: none;
         padding-left: 20px; }
-        aside .sidebar-characters li a span {
+        aside#character-selection .sidebar-characters li a span {
           border: 1px solid #f8f8f8;
           padding: 2px 3px 2px 6px;
           margin-right: 10px; }
-          aside .sidebar-characters li a span small:first-child {
+          aside#character-selection .sidebar-characters li a span small:first-child {
             font-size: 11px;
             text-transform: uppercase; }
-          aside .sidebar-characters li a span small:last-child {
+          aside#character-selection .sidebar-characters li a span small:last-child {
             font-size: 16px; }
-        aside .sidebar-characters li a h2 {
+        aside#character-selection .sidebar-characters li a h2 {
           display: inline-block;
           position: relative;
           top: 6px; }
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 240px;
+  padding: 10px;
+  background: #191715;
+  color: #f8f8f8; }
+  .sidebar header img {
+    display: block;
+    margin: 20px auto 0;
+    height: 100px;
+    width: 50px; }
+  .sidebar header h1 {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    text-align: center; }
+  .sidebar .stats-lockup {
+    margin-bottom: 20px; }
+  .sidebar .stat-unit {
+    background: #1c1b19;
+    padding: 0px 10px;
+    height: 28px;
+    line-height: 28px;
+    margin-bottom: 5px;
+    font-size: 18px; }
+    .sidebar .stat-unit:before, .sidebar .stat-unit:after {
+      content: '';
+      display: table; }
+    .sidebar .stat-unit:after {
+      clear: both; }
+    .sidebar .stat-unit.shield img {
+      margin-right: 14px; }
+    .sidebar .stat-unit img {
+      display: inline-block;
+      margin-right: 10px;
+      position: relative;
+      top: 4px; }
+    .sidebar .stat-unit:last-child img {
+      -webkit-transform: scaleX(-1);
+      -moz-transform: scaleX(-1);
+      -ms-transform: scaleX(-1);
+      -o-transform: scaleX(-1);
+      transform: scaleX(-1); }
+    .sidebar .stat-unit .stat-title {
+      position: relative;
+      top: -2px; }
+    .sidebar .stat-unit .stat-amount {
+      float: right; }
+  .sidebar .equipment-lockup {
+    margin-bottom: 20px; }
+    .sidebar .equipment-lockup .equipment-slots {
+      width: 129px;
+      margin: 0 auto; }
+      .sidebar .equipment-lockup .equipment-slots:before, .sidebar .equipment-lockup .equipment-slots:after {
+        content: '';
+        display: table; }
+      .sidebar .equipment-lockup .equipment-slots:after {
+        clear: both; }
+    .sidebar .equipment-lockup .head-slot {
+      margin: 0 auto; }
+    .sidebar .equipment-lockup .neck-slot {
+      margin: 0 auto; }
+    .sidebar .equipment-lockup .hands-slot {
+      margin-right: 10px;
+      float: left; }
+    .sidebar .equipment-lockup .body-slot {
+      margin-right: 10px;
+      float: left; }
+    .sidebar .equipment-lockup .feet-slot {
+      float: left; }
+    .sidebar .equipment-lockup .pants-slot {
+      float: left;
+      margin-right: 10px; }
+    .sidebar .equipment-lockup .weapon-slot {
+      float: left;
+      margin-right: 10px; }
+  .sidebar .eq-slot, .sidebar .equipment-lockup .head-slot, .sidebar .equipment-lockup .neck-slot, .sidebar .equipment-lockup .hands-slot, .sidebar .equipment-lockup .body-slot, .sidebar .equipment-lockup .feet-slot, .sidebar .equipment-lockup .pants-slot, .sidebar .equipment-lockup .weapon-slot {
+    height: 36px;
+    width: 36px;
+    position: relative;
+    border: 2px solid #61605f;
+    background: #1e1d1b;
+    margin-bottom: 10px; }
+  .sidebar .combat-stats-lockup {
+    margin-bottom: 20px; }
+    .sidebar .combat-stats-lockup .stat-unit:first-child img {
+      -webkit-transform: scaleX(-1);
+      -moz-transform: scaleX(-1);
+      -ms-transform: scaleX(-1);
+      -o-transform: scaleX(-1);
+      transform: scaleX(-1); }
+  .sidebar footer:before, .sidebar footer:after {
+    content: '';
+    display: table; }
+  .sidebar footer:after {
+    clear: both; }
+  .sidebar footer .currency {
+    float: right;
+    display: block;
+    background: #272320;
+    min-width: 40px;
+    height: 24px;
+    padding: 0px 5px;
+    font-size: 12px;
+    line-height: 24px; }
+    .sidebar footer .currency img {
+      margin-right: 5px; }
+    .sidebar footer .currency span {
+      text-align: right; }
+  .sidebar footer ul {
+    padding: 8px 8px 3px 8px;
+    background: #272320;
+    margin-top: 20px;
+    margin-bottom: 10px; }
+    .sidebar footer ul:before, .sidebar footer ul:after {
+      content: '';
+      display: table; }
+    .sidebar footer ul:after {
+      clear: both; }
+    .sidebar footer ul li {
+      list-style: none; }
+      .sidebar footer ul li:nth-child(5n) {
+        margin-right: 0; }
+      .sidebar footer ul li img {
+        display: block;
+        position: relative;
+        top: 50%;
+        left: 50%;
+        height: 26px;
+        width: 26px;
+        -webkit-transform: translateY(-50%) translateX(-50%);
+        -moz-transform: translateY(-50%) translateX(-50%);
+        -ms-transform: translateY(-50%) translateX(-50%);
+        -o-transform: translateY(-50%) translateX(-50%);
+        transform: translateY(-50%) translateX(-50%); }
+  .sidebar footer .inv-slot, .sidebar footer ul li {
+    height: 36px;
+    width: 36px;
+    position: relative;
+    border: 2px solid #61605f;
+    background: #1e1d1b;
+    margin-bottom: 5px;
+    margin-right: 6px;
+    float: left; }
+
+.tooltip {
+  position: relative;
+  width: 220px;
+  padding: 10px;
+  height: 150px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  background: rgba(2, 2, 2, 0.5);
+  box-shadow: 0 0 6px rgba(222, 222, 222, 0.4), inset 0 0 3px rgba(2, 2, 2, 0.8);
+  display: none; }
+  .tooltip h6 {
+    font-size: 20px;
+    color: #f8f8f8;
+    margin-bottom: 10px; }
+  .tooltip ul {
+    margin-bottom: 6px;
+    margin-right: 20px;
+    float: left; }
+    .tooltip ul li {
+      line-height: 18px;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      color: #f8f8f8;
+      list-style: none; }
+      .tooltip ul li img {
+        height: 18px;
+        width: 18px;
+        position: relative;
+        top: 4px;
+        margin-right: 5px; }
+  .tooltip blockquote {
+    margin-bottom: 10px;
+    font-size: 14px; }
+  .tooltip p {
+    position: absolute;
+    top: 14px;
+    right: 10px;
+    font-size: 16px; }
+    .tooltip p img {
+      margin-right: 5px; }
 
 #login .action-box {
   position: fixed;
