@@ -12,7 +12,7 @@ using System.Web.UI.WebControls;
 public static class LoginHandler
 {
     private static DataClassesDataContext db = new DataClassesDataContext();
-    
+
     public static User CurrentUser
     {
         get

@@ -69,9 +69,9 @@ public class Chars
 
         Character CharToUpdate = new Character();
 
-        CharToUpdate.Level = CharToSave.Level;
-        CharToUpdate.Experience = CharToSave.Experience;
-        CharToUpdate.Currency = CharToSave.Currency;
+        CharToSave.Level = CharToUpdate.Level;
+        CharToSave.Experience = CharToUpdate.Experience;
+        CharToSave.Currency = CharToUpdate.Currency;
         db.SubmitChanges();
     }
 
@@ -84,7 +84,7 @@ public class Chars
 
     public static List<Character> GetCharList()
     {
-        if (LoginHandler.CurrentUser.role != 0)
+        if (LoginHandler.CurrentUser.Role != 0)
         {
             List<Character> CharsToList = db.Characters.Where(ucc => ucc.User.Equals(LoginHandler.CurrentUser.id)).ToList();
             HttpContext.Current.Session[cl] = CharsToList;
@@ -97,14 +97,14 @@ public class Chars
     }
 
     //CHAR OPTIONS
-   
+
     public static int CharToCreate(string name, int race, int role, int user)
     {
         int result = -1;
         if (CharLimit(10))
         {
             Character NewChar = new Character();
-            
+
             NewChar.Name = name;
             NewChar.Race = race;
             NewChar.Class = role;

@@ -16,9 +16,6 @@ public class Looting
     private static List<item> ListLoot;
     private static List<monster> hostileList;
 
-    int start = 0;
-    int end = 100;
-
     public static List<item> GetLoot()
     {
         if (HttpContext.Current.Session[i] == null)
@@ -35,7 +32,7 @@ public class Looting
             // generate hostile
             List<Hostile> hostileList = new List<Hostile>();
             monster toEncounter = db.monsters.First();
-            Hostile newHostile = new Hostile(toEncounter.id, rand(0, 5));
+            Hostile newHostile = new Hostile(toEncounter.id, ItemGenerator.rand(0, 5));
 
             hostileList.Add(newHostile);
             HttpContext.Current.Session[h] = hostileList;
@@ -45,72 +42,13 @@ public class Looting
 
     public static Hostile ConvertToHostile(monster monsterToConvert)
     {
-        return new Hostile(monsterToConvert.id,1);
+        return new Hostile(monsterToConvert.id, 1);
     }
 
     public static monster ConvertToMonster(Hostile hostileToConvert)
     {
         monster convertedHostile = db.monsters.First(m => m.id.Equals(hostileToConvert.Id));
         return convertedHostile;
-    }
-
-    public static int rand(int start, int end)
-    {
-        Random rd = new Random();
-        return rd.Next(start, end);
-    }
-
-    //public static int levelDecider()
-    //{
-    //    foreach (Hostile mob in GetHostile())
-    //    int iL = -1;
-    //    foreach (monster currentHostile in hostileList)
-    //    {
-    //        iL = currentHostile.level;
-    //    }
-    //    return iL;
-    //}
-
-    /// <summary>
-    /// Rolls the rarity of an item.
-    /// If Unique rarity, rolls Unique tier.
-    /// Returns rarity ID.
-    /// </summary>
-    /// <returns>Rarity ID</returns>
-    public static int rarityDecider()
-    {
-        int rd = rand(0, 100);
-        bool rarityChosen = false;
-        int rarityId = -1;
-
-        foreach (itemRarity ir in (from dbIr in db.itemRarities where (dbIr.id <= 4) select dbIr).OrderByDescending(o => o.id))
-        {
-            if (ir.value <= rd && !rarityChosen)
-            {
-                rarityId = ir.id;
-                rarityChosen = true;
-                break;
-            }
-        }
-        if (rarityId == 4)
-        {
-            int uTier = rand(0, 100);
-
-            foreach (itemRarity ir in (from dbIr in db.itemRarities where (dbIr.id > 4) select dbIr).OrderByDescending(o => o.id))
-            {
-                if (ir.value <= uTier)
-                {
-                    rarityId = ir.id;
-                    break;
-                }
-            }
-        }
-        return rarityId;
-    }
-
-    public static int baseDecider()
-    {
-        return rand(0, db.itemBases.Count());
     }
 
     //public static item itemRandomizer()
@@ -144,7 +82,7 @@ public class Looting
 
     public static int LootDrop()
     {
-        decimal dropCount = (Convert.ToDecimal(rand(1, 100) * hostileLevel() / 2));
+        decimal dropCount = (Convert.ToDecimal(ItemGenerator.rand(1, 100) * hostileLevel() / 2));
         return Convert.ToInt32(dropCount);
     }
 
