@@ -22,7 +22,7 @@ public partial class lobby : System.Web.UI.Page
             Response.Redirect("Login.aspx");
         }
 
-        account_name.Text = LoginHandler.CurrentUser.email;
+        account_name.Text = LoginHandler.CurrentUser.Email;
 
 
 

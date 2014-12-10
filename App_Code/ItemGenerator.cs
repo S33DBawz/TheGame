@@ -8,7 +8,7 @@ using System.Web;
 /// </summary>
 public class ItemGenerator
 {
-    static DataClassesDataContext db = new DataClassesDataContext();
+  /*  static DataClassesDataContext db = new DataClassesDataContext();
 
     //CORE FUNCTIONALITY AND HELPERS
 
@@ -95,5 +95,5 @@ public class ItemGenerator
     public static int baseDecider()
     {
         return ItemGenerator.rand(0, db.itemBases.Count());
-    }
+    }*/
 }

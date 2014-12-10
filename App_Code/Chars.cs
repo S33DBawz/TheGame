@@ -86,7 +86,7 @@ public class Chars
     {
         if (LoginHandler.CurrentUser.Role != 0)
         {
-            List<Character> CharsToList = db.Characters.Where(ucc => ucc.User.Equals(LoginHandler.CurrentUser.id)).ToList();
+            List<Character> CharsToList = db.Characters.Where(ucc => ucc.User.Equals(LoginHandler.CurrentUser.Id)).ToList();
             HttpContext.Current.Session[cl] = CharsToList;
         }
         return HttpContext.Current.Session[cl] as List<Character>;

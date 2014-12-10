@@ -27,7 +27,7 @@ public partial class Login : System.Web.UI.Page
     protected void btn_register_OnClick(object sender, EventArgs e)
     {
 
-        LoginHandler.Register(tb_reg_email.Text, tb_reg_password.Text, 4);
+        LoginHandler.Register(tb_reg_email.Text, tb_reg_password.Text, 2);
 
         if (LoginHandler.Login(tb_reg_email.Text, tb_reg_password.Text))
         {

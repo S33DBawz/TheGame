@@ -8,7 +8,7 @@ using System.Web;
 /// </summary>
 public class Looting
 {
-    static DataClassesDataContext db = new DataClassesDataContext();
+   /* static DataClassesDataContext db = new DataClassesDataContext();
 
     public static string i = "item";
     public static string h = "hostile";
@@ -175,5 +175,5 @@ public class Looting
     //        }
     //    }
     //    SaveHostiles(ListHostiles);
-    //}
+    //}*/
 }
